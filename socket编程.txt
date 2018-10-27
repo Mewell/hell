@@ -1,80 +1,36 @@
 #include <winsock2.h>
 #pragma comment(lib,"ws2_32.lib")
-int main(){
-
 WSADATA wsaData;//初始化必要
 SOCKET sockS;   //服务器套接字
 SOCKADDR_IN addrS;  //服务器地址
 SOCKADDR_IN addrC;  //客户机地址
 int len=sizeof(SOCKADDR);   //套接字地址
 int err;    //判断
-
 err=WSDStartup(MAKEWORD(2,2)，&wsaData); //初始化 通过wsadata获取winsock信息
-if(err!=0)
-{
-cout<<"初始化失败!"<<endl;
-return 0;
-}
-
-if(LOBYTE(wsaData.wVersion)!=2||HIBYTE(wsaData.wVersion)!=2)//如果winsock的版本不是2 退出
-{
-WSACleanup();
-cout<<"启动失败！"<<endl;
-return 0;
-}
-
 sockS=socket(AF_INET,SOCK_DGRAM,IPPROTO_UDP);   //建立无连接UDP套接字
-
-if(sockS==INVALID_SOCKET)
-{
-cout<<"socket ERROR!"<<endl;
-return 0;
-}
-
 addrS.sin_addr.S_un.S_addr=htonl(INADDR_ANY);   //设置服务器地址
 addrS.sin_family=AF_INET;   //设置地址家族 默认
 addrS.sin_port=htons(6000); //设置端口号6000
-
 err=bind(sockS,(SOCKADDR*)&addrS,len)  //把套接字绑定到本地址和指定端口号上
-if(err==SOCKET_ERROR)
-{
-cout<<"bind ERROR!"<<endl;
-return 0;
-}
-
-/*
 err=listen(sockS,4);    //监听 最多4个客户机在队列
-if(err==SOCKET_ERROR)
-{                     
-cout<<"listen ERROR!"<<endl;
-return 0;
-}
-
 SOCKET sockCoon=accept(sockS,(SOCKADDR*)&addrC,&len);   //建立连接
-if(sockCoon==INVALID_SOCKET)
-{
-cout<<"CONNECT ERROR!"<<endl;
-return 0;
-}
-*/
-
-while(true)
-{
-char recdata[255];
 int ret=recvfrom(sockS,recdata,255,0,(SOCKADDR*)&addrC,&len);
 if(ret>0)
-{
 recdata[ret] = 0x00;
 		cout<<"接受一个链接：%s\t\r"+inet_ntoa(addrC.sin_addr);
 		cout<<recdata;
-}
-}
+
 closesocket(sockS);
 WSACleanup();
-system("pause");
-return 0;
 
-}
+第一步：导入库文件 #include<winsock2.h> #pragma comment(lib,"ws2_32.lib")
+第二步：初始化 WSADATA wsa; wsa=WSDStartup()
+
+
+
+程序：进制转换
+输入二进制、十进制、十六进制自动识别
+转换为其他两种格式
 
 
 
