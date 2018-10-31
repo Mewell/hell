@@ -15,3 +15,14 @@ man +命令 //帮助
 显示文件内容(cat more less head tail)
 
 
+ls -l 简单目录
+ls -IS 目录排序
+ls -Ir
+ls *.txt
+ls -s
+ls -t
+ls -X
+ls -S
+ls -al
+
+

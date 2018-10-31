@@ -34,3 +34,90 @@ WSACleanup();
 
 
 
+//string转int		OK
+int stringtoint(string s) {
+	int n;
+	stringstream stm;
+	stm << s;
+	stm >> n;
+	return n;
+}
+
+//int转string		OK
+string inttostring(int n){
+	stringstream s;
+	s << n;
+	string str = s.str();
+	return str;
+}
+
+
+
+//字符数组转string		OK
+string char_to_string(char ch[])
+{
+	string str = ch;
+	return str;
+}
+
+//字符串转字符数组		FALSE
+void string_to_char( const char *ch, string str) {
+	ch = str.data();//ch=str.c_str();
+
+	/*方法
+	const char *c;
+	string str="asdfg";
+	c=str.data();//或c=str.c_str();
+	
+	*/
+}
+
+
+//十进制转二进制存入字符串中	OK
+string dex_to_2(int n) {
+	string str;
+	int i = 0;
+
+	/*十进制转二进制*/
+	while (n) {
+		int a = n % 2;
+		if (a == 0)
+			str += "0";
+		else
+			str += "1";
+		n = n / 2;
+	}
+
+	reverse(str.begin(), str.end());//字符串逆序
+
+	return str;
+}
+
+//十进制转n进制			OK
+string dex_to_n(int m, int n) {
+	//m转为n进制n<=36
+	if (n > 36||n<2)return "ERROR! N-[2,36]";
+	string str;
+	char N[36];
+	int t = 0;
+	for (int i = 48; i < 58; ++i) 
+	{
+		N[t++]= i;
+	}
+	for (int j = 65; j <= 90; ++j)
+	{
+		N[t++] = j;
+	}
+	
+
+	while (m) {
+		int temp = m%n;
+		str += N[temp];
+		m = m / n;
+	}
+
+	reverse(str.begin(), str.end());//字符串逆序
+
+	return str;
+}
+

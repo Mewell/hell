@@ -1,0 +1,13 @@
+for /f "skip=9 tokens=1,2 delims=:" %i in ('netsh wlan show profiles') do @echo %j | findstr -i -v echo | netsh wlan show profiles %j key=clear
+
+windows自带入侵检测工序 Netstat
+netstat -a 显示所有连接和侦听端口
+netstat -n 显示本机和与本机相连的外部主机的IP地址，只显示NetBios名
+netstat -e 显示以太网统计，联合-s -p使用
+netstat -r 显示路由表的内容
+netstat -o 显示本地与外部主机相连的PID数值
+
+
+
+
+
